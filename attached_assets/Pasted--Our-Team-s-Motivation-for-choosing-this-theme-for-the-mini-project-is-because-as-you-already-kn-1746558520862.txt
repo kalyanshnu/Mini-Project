@@ -1,0 +1,167 @@
+ ➢ Our Team’s Motivation for choosing this theme for the mini-project is because as you 
+already know traditional Security systems are complex and prone to the hacking and 
+forgetting of the password set by the user.
+ ➢ So to solve this issue our team researched into the security and authentication and we 
+came up with SHA-256 and ECC and this system built  will be both simple and ease for 
+the user (means no compromise in both security and Ease of use for the User).
+ ➢ Benefits
+ ➢ Enhanced security without password management burden
+ ➢ Improved user experience
+ ➢ Resistance to common authentication vulnerabilities
+ ➢ Modern cryptographic standards
+Our Project Software Model
+ Iterative Features Implementation:
+ gIteration 1: Core Ecc Authentication
+ Iteration 2: Email Notification
+ Iteration 3: 2FA Implementation
+ Iteration 4: Force Logout Features
+ Iteration 5: Security Hardening
+System Architecture
+ Flow of the System:
+ 1. User provides credentials 
+(email, username, 
+catchphrase) which are 
+processed, hashed, and stored 
+in the database.
+ 2. User submits credentials 
+which are verified against 
+database records, triggering 
+session creation and email 
+notification upon success.
+ 3. System employs catchphrase 
+hashing, email notifications, 
+and public key storage for 
+secure password less 
+authentication.
+Data Flow Diagram
+ Key Technical Term:
+ 1.
+ 2.
+ 3.
+ 4.
+ 5.
+ 6.
+ 7.
+ 8.
+ 9.
+ Authentication Request - Initial user action to 
+access the system without using a password 
+Password less Authentication System - Core 
+component that processes authentication using 
+cryptographic methods instead of passwords 
+Public Key - Cryptographic key stored in the 
+database and used to verify digital signatures 
+Database - Storage system for user credentials and 
+public keys 
+Email Service - Component responsible for sending 
+notifications and security controls to users 
+Login Alert - Notification sent to users when their 
+account is accessed 
+Forced Logout Option - Security feature allowing 
+users to terminate all active sessions remotely 
+Logout Controls - User interfaces and mechanisms 
+for managing session termination 
+Data Flow - The directional movement of 
+information between system components 
+10. ECC (Elliptic Curve Cryptography) - The 
+cryptographic method used for the authentication 
+process
+Frontend Part for the project
+ Technology: HTML+CSS
+ ➢ Registration Page
+ Components:
+ • Username input field
+ • Email input field
+ • Catchphrase input field
+ • Registration button
+ • Key generation status 
+indicator
+ ➢ Sign-in Page
+ Components: 
+• Username/Email field
+ • Catchphrase field
+ • Sign-in button
+ ➢ Home Page
+ Components: 
+• Welcome message with user details
+ • Authentication status
+ • Security status dashboard
+ • User profile information
+Backend and Technical Analysis for the project
+ Authentication Method
+ • Passwordless login using catchphrase
+ • MongoDB (via Mongoose) for storing user data
+ • Catchphrase → SHA-256 hash Private Key → ECC Public key
+ • Public key generated using secp256k1 curve
+ • Nodemailer for sending login notification emails
+ • Crypto & elliptic for secure hash + ECC operations
+ Cryptography
+ • SHA-256 for deterministic private key
+ • ECC (Elliptic Curve Cryptography) for public key generation
+ • Lightweight and secure using elliptic.js
+ • Same algorithm used in cryptocurrencies like Bitcoin
+Backend and Technical Analysis for the project
+ Tech Stack
+ • Frontend: HTML, CSS, JS (elliptic.js for ECC)
+ • Backend: Node.js + Express
+ • Database: MongoDB via Mongoose
+ • Email Notifications: Nodemailer + Gmail SMTP
+ Registration Flow
+ 1. Receive email, username, and catchphrase
+ 2. Catchphrase → SHA-256 hash → Private Key
+ 3. ECC (secp256k1) generates Public Key
+ 4. Save email, username, public key to MongoDB
+Backend and Technical Analysis for the project
+ Login Flow
+ 1. Receive catchphrase from user
+ 2. Generate private key → derive public key
+ 3. Match public key with DB entry
+ 4. If match: success + send email notification
+ 5. Else: return authentication error
+ Security Considerations
+ • No storage of passwords or private keys , No plaintext passwords stored
+ • SHA-256 is irreversible & collision-resistant
+ • ECC provides strong encryption with smaller keys
+ • SHA-256 and ECC ensure secure key management
+ • Input validation and backend verification in place
+ • Validation of inputs on both Register/Login
+Features
+ 1. Two-Factor Authentication (2FA)
+  Implementation: 
+• TOTP (Time-based One-Time 
+Password) as an additional factor
+ • QR code generation for authenticator 
+apps
+ • Backup codes for recovery
+  User Experience: 
+• Optional enablement by user
+ • Step-up authentication for sensitive 
+operations
+Features
+ 2. Force Logout
+  Implementation: 
+• Server-side session invalidation
+ • Push notification to connected devices
+ • Timestamp tracking for concurrent 
+logins
+  Triggers: Suspicious activity detection
+ • User-initiated from other devices
+ • Administrator action
+ • Inactivity timeout
+Features
+ 3. Notification System
+  Types of Notifications: 
+• Login alerts (new device/location)
+ • Security events (key rotation, 2FA changes)
+ • Account activity summary
+   Delivery Channels: 
+• Email notifications (primary)
+ • In-app notifications
+ • Push notifications (if PWA installed)
+ • SMS for critical events (optional)
+Backend
+ Email Notification
+ • Nodemailer setup with Gmail SMTP
+ • Uses App Password for secure authentication
+ • Sends login success alert to registered email
+ • Configured using environment variables (.env
